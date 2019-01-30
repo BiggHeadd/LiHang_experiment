@@ -2,6 +2,9 @@
 # Edited by bighead 19-1-28
 
 import pandas as pd
+import numpy as np
+import cv2
+
 
 def get_train_data(data_csv):
     """the data is store in the data_csv files, using pandas get the labels and pixelsself.
@@ -26,9 +29,34 @@ def get_train_data(data_csv):
     binary_data = binary_data.values
     labels = binary_data[:, 0]
     pixels = binary_data[:, 1:]
-    print("labels", len(labels))
     return (labels, pixels)
+
+def get_hog_feature(pixels):
+    """get the inputs sets of the numbers pictures, get hog features from each pic and return
+    a new set of features
+
+    Args:
+         pixels: the numpy array like data of inputs
+
+    returns:
+         features: the hog features of the origin pic features
+            the shape change from (28, 28) to (18, 18) 
+    """
+    features = []
+    hog = cv2.HOGDescriptor('data/hog.xml')
+    for img in pixels:
+        img = np.reshape(img, (28, 28))
+        cv_img = img.astype(np.uint8)
+
+        hog_feature = hog.compute(cv_img)
+        features.append(hog_feature)
+
+    features = np.array(features)
+    features = np.reshape(features, (-1, 324))
+
+    return features
 
 
 if __name__ == "__main__":
-    get_train_data("data/train_binary.csv")
+    labels, inputs = get_train_data("data/train_binary.csv")
+    get_hog_feature(inputs)
