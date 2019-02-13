@@ -93,7 +93,7 @@ def predict(test_set, w, b):
 
 ########## Get inputs and labels
 read_start = time.time()
-labels, inputs = get_train_data("data/train_binary.csv")
+labels, inputs = get_train_data("../data/train_binary.csv")
 inputs = get_hog_feature(inputs)
 ####### NOTE:
 ### ('labels :', 42000)

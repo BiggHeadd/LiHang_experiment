@@ -11,6 +11,8 @@ def get_train_data(data_csv):
        and return a numpy like labels and pixel data
 
        Args:
+
+
             data_csv: the path of the csv file containing the training data
 
        Return:
@@ -31,6 +33,7 @@ def get_train_data(data_csv):
     pixels = binary_data[:, 1:]
     return (labels, pixels)
 
+
 def get_hog_feature(pixels):
     """get the inputs sets of the numbers pictures, get hog features from each pic and return
     a new set of features
@@ -40,7 +43,7 @@ def get_hog_feature(pixels):
 
     returns:
          features: the hog features of the origin pic features
-            the shape change from (28, 28) to (18, 18) 
+            the shape change from (28, 28) to (18, 18)
     """
     features = []
     hog = cv2.HOGDescriptor('data/hog.xml')
